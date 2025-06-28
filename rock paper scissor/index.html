@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      padding: 50px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .choices {
+      margin: 20px 0;
+    }
+
+    .choice {
+      display: inline-block;
+      margin: 0 15px;
+      padding: 20px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.3s;
+    }
+
+    .choice:hover {
+      background: #ddd;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+  <div class="choices">
+    <div class="choice" data-choice="rock">✊ Rock</div>
+    <div class="choice" data-choice="paper">✋ Paper</div>
+    <div class="choice" data-choice="scissors">✌️ Scissors</div>
+  </div>
+  <div id="result"></div>
+
+  <script>
+    const choices = document.querySelectorAll('.choice');
+    const resultDiv = document.getElementById('result');
+
+    choices.forEach(choice => {
+      choice.addEventListener('click', () => {
+        const playerChoice = choice.getAttribute('data-choice');
+        const computerChoice = getComputerChoice();
+        const winner = getWinner(playerChoice, computerChoice);
+        resultDiv.innerHTML = `
+          You chose: <strong>${playerChoice}</strong> <br>
+          Computer chose: <strong>${computerChoice}</strong> <br>
+          <br>
+          ${winner}
+        `;
+      });
+    });
+
+    function getComputerChoice() {
+      const choices = ['rock', 'paper', 'scissors'];
+      const randomIndex = Math.floor(Math.random() * choices.length);
+      return choices[randomIndex];
+    }
+
+    function getWinner(player, computer) {
+      if (player === computer) {
+        return "It's a draw!";
+      } else if (
+        (player === 'rock' && computer === 'scissors') ||
+        (player === 'scissors' && computer === 'paper') ||
+        (player === 'paper' && computer === 'rock')
+      ) {
+        return "You win! 🎉";
+      } else {
+        return "You lose! 😢";
+      }
+    }
+  </script>
+</body>
+</html>
